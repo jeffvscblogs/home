@@ -1,0 +1,108 @@
+/* Reset default styling for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    cursor: url(https://cur.cursors-4u.net/anime/ani-12/ani1135.ani), url(https://cur.cursors-4u.net/anime/ani-12/ani1135.png), auto
+}
+
+/* Header styling */
+header {
+    font-family: 'Press Start 2P', cursive;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+}
+
+img {
+    float: left;
+    margin-right: 15px;
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+/* Back button styling */
+.back-button {
+    font-size: 1rem;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 5px 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.back-button:hover {
+    color: #9b2cdb;
+}
+
+/* Container styling */
+.container {
+    width: 80%;
+    background-color: #020202;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+table, th, td {
+    border: 1px solid #7e7e7e;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Styling for links in table */
+th a, td a {
+    color: #f8fbff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hover effects for links */
+ td a:hover {
+    text-decoration: wavy;
+}
+
+/* Add some spacing to the table */
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #3f3f3f;
+}

@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    
+    cursor: url(https://cur.cursors-4u.net/anime/ani-12/ani1135.ani), url(https://cur.cursors-4u.net/anime/ani-12/ani1135.png), auto 
+    
+}
+
+header {
+    width: 100%;
+    display: flex;
+    font-family: 'Press Start 2P', cursive;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+h1 {
+    text-align: left;
+    margin: 0;
+}
+
+.back-button {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.back-button:hover {
+    color: #9b2cdb;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+}
+
+img {
+    float: left;
+    margin-right: 15px;
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.text {
+    max-width: 600px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="icon" type="image/x-icon" href="wifi-alt.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Reset default styling for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body styling - Terminal font */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            cursor: url(https://cur.cursors-4u.net/nature/nat-11/nat1034.ani), url(https://cur.cursors-4u.net/nature/nat-11/nat1034.gif), auto !important;
+        }
+
+        /* Header styling */
+        header {
+            font-family: 'Press Start 2P', cursive;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Main container */
+        .contact-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px;
+            background-color: #9e9e9e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Header */
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 0 auto;
+            
+        }
+
+        .card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Photo inside the card */
+        .card img {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Card name and description */
+        .card h3 {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            color: #007BFF;
+        }
+
+        .card p {
+            color: #ffffff;
+            margin-top: 5px;
+        }
+
+        /* Footer styling */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #000000;
+            color: #fff;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        /* Car animation */
+        .car-animation {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 50px;
+        }
+
+        .car-animation img {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        @keyframes drive-car {
+            0% {
+                left: -100px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+            
+        .car-animation img {
+            animation: drive-car 5s linear infinite;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <header>
+        <a href="index.html" class="back-button">>_Home</a>
+    </header>
+    <div class="contact-container">
+        <h1>Contact Me</h1>
+
+        <!-- Card with your details -->
+        <div class="card">
+            <img src="image.png" alt="Your Photo"> <!-- Replace with your photo -->
+            <h3>Juman Deep </h3> <!-- Replace with your name -->
+            <p>Feel free to reach out to me for any inquiries!</p>
+            <p>>_personal -deepjuman@gmail.com</p>
+        </div>
+    </div>
+
+    <!-- Footer with car animation -->
+    <footer>
+        <div class="car-animation">
+            <img src="image-removebg-preview (1).png" alt="Car"> <!-- Add the path to your car image -->
+        </div>
+        <p>made on 2025-02-06 by Juman </p>
+    </footer>
+
+</body>
+</html>
