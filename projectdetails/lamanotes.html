@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: #000000;
+            color: #fae9e9;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #fff;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: #d3cfcf;
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .header-buttons button:hover {
+            color: #e65a50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        .project-details {
+            margin-bottom: 40px;
+        }
+        .project-details h2 {
+            color: #ddc3c3;
+            margin-top: 0;
+        }
+        .project-details p {
+            margin: 10px 0;
+        }
+        .project-details ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .project-details ul li {
+            margin-bottom: 10px;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: #000000;
+            color: #5a5a5a;
+        }
+        a {
+            color: #fae9e9;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #ff6f61;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+        </div>
+        <div class="header-buttons">
+            <button onclick="window.location.href='../about.html'">About</button>
+            <button onclick="window.location.href='../current.html'">Current</button>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Project Details</h1>
+
+        <!-- Project 2: Lama: Notes -->
+        <div class="project-details">
+            <h2>Lama: Notes</h2>
+            <p>A note-taking app that allows users to organize their thoughts and ideas in a clean and intuitive interface.</p>
+            <h3>Features:</h3>
+            <ul>
+                <li>Rich text formatting for notes.</li>
+                <li>Tagging and categorization for easy retrieval.</li>
+                <li>Cloud sync for seamless access across devices.</li>
+            </ul>
+            <p><a href="https://lamanotes1.netlify.app" target="_blank" rel="noopener noreferrer">Visit Project</a></p>
+        </div>
+
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
+</body>
+</html>
