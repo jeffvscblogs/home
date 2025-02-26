@@ -3,25 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link rel="stylesheet" href="about.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="info.png">
+    <title>Blogs | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: #000000;
+            color: #fae9e9;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #fff;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: #d3cfcf;
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .header-buttons button:hover {
+            color: #e65a50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        article {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        article:last-child {
+            border-bottom: none;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        h2 {
+            color: #ddc3c3;
+            margin-top: 20px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: #000000;
+            color: #5a5a5a;
+        }
+        a {
+            color: #fae9e9;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #ff6f61;
+        }
+    </style>
 </head>
 <body>
-
     <header>
-        <h2>About</h2>
-        <a href="index.html" class="back-button">>_Back</a>
-    </header>
-
-    <div class="content">
-        <img src="1000128895-01.jpeg" alt="rivei">
-        <div class="text">
-            <p>>_Hello My name is Juman Deep Bharati</p>
-            <p>>_Hey check</p>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+            
         </div>
+        <div class="header-buttons">
+            <button onclick="window.location.href='about.html'">About</button>
+            <button onclick="window.location.href='current.html'">Current</button>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Default Blog Template -->
+        <article>
+            <section>
+                <h2>Introduction</h2>
+                <p>I'm Juman. You may also know me as <i>Jeff</i>, currently I am 17 years old boy. I am working on few projects for myself aiming to create a productivity and essential system for myself. Since my skills are not too good, my projects are only shared with the in-contact members/friends. I am currently working on <a href="">Lama:Productivity</a>↗ and <a href="">Lama:Notes</a>↗ . A few links to explore: </p>
+                <ul>
+                    <li><a href="https://jeffvscblogs.github.io/home/blogs.html">Blogs</a></li>
+                    <li><a href="Projects.html">Projects </a></li>
+                    <li><a href="current.html">Whats neww?</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Connect?</h2>
+                <p>You can see my <a href="https://jeffvscblogs.github.io/home/contact.html">contact card</a> or can follow me:</p>
+                <ul>
+                    <li>
+                        <p>Inkora: 
+                        <a href="https://jeffvsc.wixsite.com/inkora/profile/deepjuman/profile">Inkora Page</a>↗
+                        </p>
+                    </li>
+                    <li>
+                        <p>Twitter:
+                        <a href="#">@deepjuman</a>↗
+                    </p>
+                    </li>
+                    <li>
+                        <p>A Side Portfolio:
+                        <a href="https://jeffvsc.netlify.app/">@notsocool</a>↗
+                    </p>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Conclusion</h2>
+                <p>This site is written and made fully by me. I wanted to organise the things so that people can have a quick view.</p>
+                <p>The Project file is been hosted by <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank" rel="noopener noreferrer">Github Pages</a>. The ultimate and the final goal is to make people more happy and help in every possible way I can.</p>
+                <p>Lets Learn and Grow together <3</p>
+            </section>
+            <br>
+            <img src="https://i.ibb.co/spwmPsFd/panda-bear.png" alt="">
+            <p>I am a panda in real life</p>
+        </article>
     </div>
-
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
 </body>
 </html>
