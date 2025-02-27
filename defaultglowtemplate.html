@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #fae9e9;
+            --accent-color: #ff6f61;
+            --accent-hover: #e65a50;
+            --meta-color: #a8a8a8;
+            --related-bg: #111;
+            --scrollbar-track: #000;
+            --scrollbar-thumb: #ff6f61;
+            --header-bg: #000000;
+            --footer-color: #5a5a5a;
+            --button-color: #d3cfcf;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #FCFCFC;
+            --text-color: #333333;
+            --accent-color: #e65a50;
+            --accent-hover: #cc4a40;
+            --meta-color: #666666;
+            --related-bg: #f5f5f5;
+            --scrollbar-track: #f0f0f0;
+            --scrollbar-thumb: #e65a50;
+            --header-bg: #ffffff;
+            --footer-color: #888888;
+            --button-color: #555555;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body:not([data-theme="light"]) .container:hover {
+        box-shadow: 0 0 20px rgba(255, 111, 97, 0.3);
+        transform: translateY(-2px);
+        cursor: pointer;
+        }
+        body:not([data-theme="light"]) .container:hover::after {
+        opacity: 1;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            padding: 20px;
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: var(--button-color);
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            
+        }
+        .header-buttons button:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--bg-color);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            cursor: default;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at var(--x) var(--y), 
+            rgba(255, 111, 97, 0.15) 0%, 
+            transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 0;
+        }   
+        .blog-post {
+            margin-bottom: 40px;
+        }
+        .blog-post h1 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        .blog-post .meta {
+            font-size: 14px;
+            color: var(--meta-color);
+            margin-bottom: 20px;
+        }
+        .related-posts {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--related-bg);
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .related-posts h2 {
+            color: var(--accent-color);
+            font-size: 20px;
+        }
+        .related-posts ul {
+            list-style: none;
+            padding: 0;
+        }
+        .related-posts ul li {
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: var(--header-bg);
+            color: var(--footer-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a {
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+        </div>
+        <div class="header-buttons">
+            <button onclick="window.location.href='https://jeffvscblogs.github.io/home/index.html'">Home</button>
+            <button onclick="window.location.href='https://jeffvscblogs.github.io/home/about.html'">About</button>
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Blog Post -->
+        <div class="blog-post">
+            <h1>Title</h1>
+            <div class="meta">
+                <p><i>Category: <a href="https://jeffvscblogs.github.io/home/blogs.html">Technology</a></i></p>
+                <span>February 27, 2025</span> | <span id="reading-time">Calculating...</span>
+            </div>
+            <h2>Paragraph1</h2>
+            <p>
+                The closed tracking system ensures that all your data remains private and secure...
+            </p>
+            <h2>Paragraph 2</h2>
+            <p>..</p>
+            <h2>Pragraph 3</h2>
+            <p></p>
+        </div>
+        
+        <!-- Related Posts Section -->
+        <div class="related-posts">
+            <h2>Related Posts</h2>
+            <ul>
+                <li><a href="https://jeffvscblogs.github.io/home/blog4.html">The Art of Focus</a></li>
+                <li><a href="#">How to Improve Your Task Management</a></li>
+                <li><a href="#">The Science Behind Habit Tracking</a></li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const container = document.querySelector('.container');
+            let isDarkMode = localStorage.getItem('theme') !== 'light';
+    
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+            }
+    
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const isLight = body.getAttribute('data-theme') === 'light';
+                body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+                themeToggle.textContent = isLight ? '🌙' : '☀️';
+                localStorage.setItem('theme', isLight ? 'dark' : 'light');
+                isDarkMode = !isLight;
+            });
+    
+            // Glow effect functions
+            if (container) {
+                function updateGlowPosition(e) {
+                    if (!isDarkMode) return;
+                    
+                    const rect = container.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    container.style.setProperty('--x', `${x}px`);
+                    container.style.setProperty('--y', `${y}px`);
+                }
+    
+                container.addEventListener('mousemove', updateGlowPosition);
+                container.addEventListener('mouseleave', () => {
+                    container.style.setProperty('--x', '-9999px');
+                    container.style.setProperty('--y', '-9999px');
+                });
+            }
+        });
+    
+        // Reading Time Calculator
+        function calculateReadingTime() {
+            const blogContent = document.querySelector('.blog-post').innerText;
+            const wordsPerMinute = 200;
+            const wordCount = blogContent.split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / wordsPerMinute);
+            document.getElementById('reading-time').textContent = `${readingTime} min read`;
+        }
+        window.onload = calculateReadingTime;
+    </script>
+</body>
+</html>
