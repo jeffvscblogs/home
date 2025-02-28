@@ -3,42 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs | Jeffvsc</title>
-    <link rel="icon" type="image/x-icon" href="panda-bear.png">
-    <link rel="stylesheet" href="blogs.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Blogs | Lama</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .category-list {
+            list-style: none;
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        .category-item {
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            padding: 0.3rem 0;
+        }
+
+        .category-item:hover {
+            color: #ff6f61;
+            transform: translateX(-8px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 200px;
+            padding: 4rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .blog-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            padding: 1rem 1.5rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            border-radius: 26px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .search-bar:focus {
+            border-color: #ff6f61;
+        }
+
+        .blog-card {
+            padding-bottom: 2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .blog-title {
+            color: #ff6f61;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
+
+        .blog-meta {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-excerpt {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        /* Existing styles remain the same */
+        
+        /* Modified Category Heading */
+        .sidebar h1 {
+            color: #ff6f61;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: right;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+        }
+
+        /* Blog Card Glow Effect */
+        .blog-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .blog-card:hover {
+            background: rgba(255, 110, 97, 0.114);
+            border: 1px solid rgba(255, 111, 97, 0.1);
+            box-shadow: 0 0 20px rgba(255, 111, 97, 0.05);
+        }
+
+        /* Enhanced hover transition */
+        .blog-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Add this to your existing CSS */
+        /* Add this to your CSS */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff6e6188;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6e6188;
+    opacity: 0.8;
+}
+
+/* For Firefox */
+html {
+    scrollbar-color: #ff6e6188 #000;
+    scrollbar-width: thin;
+}
+
+/* Optional smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+    </style>
 </head>
 <body>
-    <header>
-        <h2>Blogs</h2>
-        <a href="index.html" class="back-button">>_Back</a>
-    </header>
-    
-    <div class="container">
-        <h1>Categories:</h1>
-        <br>
-        <div class="category">Personal</div>
-        <div class="blogs-list">
-            <a href="blog1.html">All My sites</a>
-            <a href="blog2.html">Ira and Ahan - A short Story</a>
-            <a href="https://drive.google.com/file/d/1NkYJvvcURe9_iERII8zm5dmzJvazcQec/view?usp=sharing" target="_blank">Maybe in another life - A Story</a>
-            <br>
-        </div>
+    <nav class="sidebar">
+        <h1>Categories</h1>
+        <ul class="category-list">
+            <li class="category-item" data-category="all">All Posts</li>
+            <li class="category-item" data-category="personal">Personal</li>
+            <li class="category-item" data-category="technology">Technology</li>
+            <li class="category-item" data-category="self-development">Self Development</li>
+            <li class="category-item" data-category="literature">Stories</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <input type="text" class="search-bar" placeholder="Search...">
         
-        <div class="category">Self-Development</div>
-        <div class="blogs-list">
-            <a href="blog4.html">The Art of Focus</a>
-            <br>
+        <div class="blog-grid" id="blog-container">
+            
         </div>
+    </main>
 
-        <div class="category">Technology</div>
-        <div class="blogs-list">
-            <!--<a href="blog5.html">Future of AI</a>
-            <a href="blog6.html">Why I Love Coding</a>-->
-            <br>
-        </div>
-    </div>
+    <script>
+        // Blog data
+        const blogs = [
+            {
+                title: "The Art of Focus",
+                category: "self-development",
+                date: "2025-02-26",
+                excerpt: "The Struggle for Focus in the Age of Ins....",
+                link: "https://jeffvscblogs.github.io/home/blog4.html"
+            },
+            {
+                title: "Ira and Ahan",
+                category: "literature",
+                date: "2025-02-22",
+                excerpt: "A very short story",
+                link: "https://jeffvscblogs.github.io/home/blog2.html"
+            },
+            {
+                title: "Maybe in Another life",
+                category: "literature",
+                date: "2024-03-13",
+                excerpt: "A Story - rom",
+                link: "https://drive.google.com/file/d/1NkYJvvcURe9_iERII8zm5dmzJvazcQec/view?usp=sharing"
+            }
+        ];
 
-    <script src="blogs.js"></script>
+        // Generate blog cards
+        function renderBlogs(filteredBlogs) {
+            const container = document.getElementById('blog-container');
+            container.innerHTML = filteredBlogs.map(blog => `
+                <div class="blog-card" data-category="${blog.category}">
+                    <a href="${blog.link}" class="blog-title">${blog.title}</a>
+                    <div class="blog-meta">
+                        ${blog.date} • ${blog.category.toUpperCase()}
+                    </div>
+                    <p class="blog-excerpt">${blog.excerpt}</p>
+                </div>
+            `).join('');
+        }
+
+        // Filter blogs by category
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const category = item.dataset.category;
+                const filtered = category === 'all' 
+                    ? blogs 
+                    : blogs.filter(blog => blog.category === category);
+                renderBlogs(filtered);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = blogs.filter(blog => 
+                blog.title.toLowerCase().includes(term) ||
+                blog.excerpt.toLowerCase().includes(term)
+            );
+            renderBlogs(filtered);
+        });
+
+        // Initial render
+        renderBlogs(blogs);
+    </script>
 </body>
 </html>
