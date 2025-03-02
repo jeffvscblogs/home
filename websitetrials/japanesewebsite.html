@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <title>★Welcome to My HOMEPAGE★</title>
+    <style>
+        body {
+            background: #FF99CC url('http://www.geocities.jp/dot/bg_star001.gif');
+            font-family: "MS PGothic";
+            color: #006600;
+            margin: 20px;
+        }
+        
+        .main-table {
+            border: 5px dotted #00FFFF;
+            background: #FFFF99;
+            padding: 10px;
+            width: 800px;
+        }
+        
+        .header {
+            background: url('http://www.geocities.jp/dot/line_raindow.gif');
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .counter {
+            border: 3px solid #FF00FF;
+            background: white;
+            padding: 5px;
+            font-size: 24px;
+            color: #FF0000;
+        }
+        
+        .midi-player {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 60px;
+            background: pink;
+            border: 3px dashed red;
+        }
+        
+        marquee {
+            color: #0000FF;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .penguin {
+            border: none;
+            image-rendering: pixelated;
+        }
+        
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% { visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Visitor Counter -->
+    <div align="center">
+        <img src="http://www.geocities.jp/dot/youarehere.gif">
+        <div class="counter">Since 2005.04.01<br>Visitors: <span id="count">000000</span></div>
+    </div>
+
+    <!-- Main Content Table -->
+    <center>
+    <div class="main-table">
+        <div class="header">
+            <h1><blink>★Welcome to My HOMEPAGE★</blink></h1>
+            <marquee>Under Construction... Please sign my guestbook!</marquee>
+        </div>
+
+        <!-- Left Column -->
+        <table width="100%" cellpadding="10">
+        <tr>
+        <td width="30%" valign="top" bgcolor="#CCFFFF">
+            <h2>▼Menu▼</h2>
+            <ul>
+                <li><a href="#"><img src="http://www.geocities.jp/dot/icon_diary.gif"> Diary</a></li>
+                <li><a href="#"><img src="http://www.geocities.jp/dot/icon_photo.gif"> Photos</a></li>
+                <li><a href="#"><img src="http://www.geocities.jp/dot/icon_mail.gif"> Contact</a></li>
+            </ul>
+            
+            <hr size="1" color="pink">
+            
+            <div style="background:white;padding:5px;">
+                <img src="http://www.geocities.jp/dot/penguin.gif" class="penguin">
+                <br>My Pet Penguin!
+            </div>
+        </td>
+
+        <!-- Right Column -->
+        <td valign="top" bgcolor="#FFFFCC">
+            <h2 class="blink">New Updates!</h2>
+            <ul>
+                <li>2007/04/01 - Opened new BBS!</li>
+                <li>2007/03/15 - Added photo gallery</li>
+                <li>2007/03/01 - Homepage opened!</li>
+            </ul>
+            
+            <hr size="1" color="blue">
+            
+            <h3>▼Guestbook▼</h3>
+            <form>
+                Name: <input type="text" name="name" size="20"><br>
+                Comment:<br>
+                <textarea cols="40" rows="5"></textarea><br>
+                <input type="submit" value="Send" style="background:#FF99CC;border:2px solid red;">
+            </form>
+        </td>
+        </tr>
+        </table>
+        
+        <!-- Webring -->
+        <center>
+            <img src="http://www.geocities.jp/dot/webring.gif"><br>
+            <a href="#">← Previous Site</a> | 
+            <a href="#">Webring Index</a> | 
+            <a href="#">Next Site →</a>
+        </center>
+    </div>
+    </center>
+
+    <!-- Construction GIF -->
+    <div style="position:fixed;bottom:0;left:0;">
+        <img src="http://www.geocities.jp/dot/construction.gif">
+    </div>
+
+    <!-- MIDI Player (Hidden) -->
+    <!--
+    <div class="midi-player">
+        <embed src="midi/always.mid" autostart="true" loop="true" hidden="true">
+    </div>
+    -->
+
+    <script>
+        // Animated visitor counter
+        let count = 1000;
+        setInterval(() => {
+            count++;
+            document.getElementById('count').textContent = 
+                String(count).padStart(6, '0');
+        }, 3000);
+
+        // Add cursor sparkles
+        document.addEventListener('mousemove', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'absolute';
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            sparkle.innerHTML = '<img src="http://www.geocities.jp/dot/sparkle.gif">';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        });
+    </script>
+</body>
+</html>

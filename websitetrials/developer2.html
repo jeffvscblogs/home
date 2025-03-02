@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Updates · Lama</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsF/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            padding: 2rem;
+            position: fixed;
+            height: 100vh;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            z-index: 9999;
+        }
+
+        .avatar-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #000000;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: rotate(8deg);
+        }
+
+        .nav-item {
+            color: #888;
+            text-decoration: none;
+            position: relative;
+            display: block;
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #ff6f61;
+            transform: translateX(10px);
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            height: 1px;
+            width: 0;
+            background: #ff6f61;
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::before {
+            width: 10px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 4rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6f61, transparent);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 25px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff6f61;
+            box-shadow: 0 0 0 2px rgba(255,111,97,0.2);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: #222;
+            border: 1px solid #333;
+            color: #888;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #ff6f61;
+            color: #000;
+            border-color: #ff6f61;
+        }
+
+        .update-entry {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 6px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .update-entry:hover {
+            border-color: #333;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+
+        .entry-title {
+            font-size: 1.2rem;
+            color: #ff6f61;
+        }
+
+        .entry-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .entry-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: #222;
+            color: #888;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .entry-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        .status-open {
+            background: rgba(255, 111, 97, 0.1);
+            color: #ff6f61;
+            border: 1px solid #ff6f61;
+        }
+
+        .status-closed {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .status-in-progress { 
+            background: rgba(255, 165, 0, 0.1);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+        }
+
+        .no-results {
+            color: #666;
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .priority {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 1rem;
+        }
+
+        .priority-critical { background: #ff4757; color: white; }
+        .priority-high { background: #ff6b6b; color: black; }
+        .priority-medium { background: #ffd93d; color: black; }
+        .priority-low { background: #4dabf7; color: white; }
+
+        .new-issue-form {
+            background: #111;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #ff6f61;
+            color: black;
+        }
+
+        .btn-secondary {
+            background: #333;
+            color: white;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: #111;
+            padding: 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #ff6f61;
+            margin-bottom: 0.5rem;
+        }
+
+        .toggle-form-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem;
+            background: #ff6f61;
+            color: black;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="avatar-container">
+            <img src="https://i.ibb.co/spwmPsF/panda-bear.png" alt="Lama" class="avatar">
+        </div>
+        <a href="#updates" class="nav-item">Updates</a>
+        <a href="https://jeffvscblogs.github.io/home/projects.html" class="nav-item">Projects</a>
+        <a href="https://jeffvscblogs.github.io/home/about.html" class="nav-item">About Creator</a>
+        <a href="#stats" class="nav-item">Statistics</a>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="updates">Dev Updates</h1>
+
+        <div class="stats-container" id="stats">
+            <div class="stat-box">
+                <div class="stat-number" id="total-issues">0</div>
+                <div>Total Reports</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="open-issues">0</div>
+                <div>Open Issues</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="resolved-issues">0</div>
+                <div>Resolved</div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search updates and issues...">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="type:issue">Issues</button>
+                <button class="filter-btn" data-filter="type:update">Updates</button>
+                <button class="filter-btn" data-filter="status:open">Open</button>
+                <button class="filter-btn" data-filter="status:closed">Closed</button>
+                <button class="filter-btn" data-filter="priority:high">High Priority</button>
+            </div>
+        </div>
+
+        <div class="new-issue-form" id="issueForm">
+            <h3>Report New Issue</h3>
+            <form id="issueFormContent">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-input" id="issueTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-input" id="issueDescription" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select class="form-input" id="issuePriority" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="toggleForm()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Issue</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="updates-list">
+            <!-- Entries will be dynamically added here -->
+        </div>
+
+        <div class="no-results">
+            No matching updates found
+        </div>
+
+        <div class="toggle-form-btn" onclick="toggleForm()">+</div>
+    </main>
+
+    <script>
+        // Data Management
+        let issues = JSON.parse(localStorage.getItem('issues')) || [];
+
+        // DOM Elements
+        const updatesList = document.querySelector('.updates-list');
+        const issueForm = document.getElementById('issueForm');
+        const searchInput = document.querySelector('.search-input');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const noResults = document.querySelector('.no-results');
+
+        let activeFilters = {
+            type: 'all',
+            status: 'all',
+            priority: 'all',
+            search: ''
+        };
+
+        // Initialize Sample Data
+        if(issues.length === 0) {
+            issues = [
+                {
+                    id: Date.now(),
+                    type: 'issue',
+                    title: 'Login Authentication Failure',
+                    description: 'Users experiencing login issues with OAuth2.0',
+                    status: 'open',
+                    priority: 'high',
+                    date: new Date().toISOString().split('T')[0],
+                    tags: ['authentication', 'bug']
+                },
+                {
+                    id: Date.now() + 1,
+                    type: 'update',
+                    title: 'New Dashboard Design',
+                    description: 'Implemented new responsive dashboard layout',
+                    status: 'closed',
+                    priority: 'medium',
+                    date: new Date().toISOString().split('T')[0],
+                    tags: ['enhancement', 'UI/UX']
+                }
+            ];
+            localStorage.setItem('issues', JSON.stringify(issues));
+        }
+
+        // Render Issues
+        function renderIssues() {
+            updatesList.innerHTML = '';
+            issues.forEach(issue => {
+                const entry = document.createElement('div');
+                entry.className = `update-entry ${issue.type}-entry`;
+                entry.dataset.type = issue.type;
+                entry.dataset.status = issue.status;
+                entry.dataset.priority = issue.priority;
+                entry.dataset.tags = issue.tags.join(', ');
+
+                entry.innerHTML = `
+                    <div class="entry-header">
+                        <h3 class="entry-title">${issue.title}
+                            <span class="priority priority-${issue.priority}">${issue.priority}</span>
+                        </h3>
+                        <span class="entry-date">${issue.date}</span>
+                    </div>
+                    <div class="entry-tags">
+                        ${issue.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <p>${issue.description}</p>
+                    <span class="entry-status status-${issue.status === 'closed' ? 'closed' : 'open'}">
+                        ${issue.status === 'closed' ? 'Resolved' : 'Open'}
+                    </span>
+                `;
+                updatesList.appendChild(entry);
+            });
+            updateStats();
+            filterEntries();
+        }
+
+        // Update Statistics
+        function updateStats() {
+            document.getElementById('total-issues').textContent = issues.length;
+            document.getElementById('open-issues').textContent = 
+                issues.filter(i => i.status === 'open').length;
+            document.getElementById('resolved-issues').textContent = 
+                issues.filter(i => i.status === 'closed').length;
+        }
+
+        // Toggle New Issue Form
+        function toggleForm() {
+            issueForm.style.display = issueForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Form Submission
+        document.getElementById('issueFormContent').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newIssue = {
+                id: Date.now(),
+                type: 'issue',
+                title: document.getElementById('issueTitle').value,
+                description: document.getElementById('issueDescription').value,
+                priority: document.getElementById('issuePriority').value,
+                status: 'open',
+                date: new Date().toISOString().split('T')[0],
+                tags: ['bug']
+            };
+
+            issues.push(newIssue);
+            localStorage.setItem('issues', JSON.stringify(issues));
+            renderIssues();
+            toggleForm();
+            document.getElementById('issueFormContent').reset();
+        });
+
+        // Filter System
+        function filterEntries() {
+            let visibleCount = 0;
+            
+            document.querySelectorAll('.update-entry').forEach(entry => {
+                const matchesType = activeFilters.type === 'all' || 
+                    entry.dataset.type === activeFilters.type.split(':')[1];
+                
+                const matchesStatus = activeFilters.status === 'all' || 
+                    entry.dataset.status === activeFilters.status.split(':')[1];
+                
+                const matchesPriority = activeFilters.priority === 'all' || 
+                    entry.dataset.priority === activeFilters.priority.split(':')[1];
+                
+                const matchesSearch = entry.textContent.toLowerCase()
+                    .includes(activeFilters.search.toLowerCase());
+
+                const isVisible = matchesType && matchesStatus && matchesPriority && matchesSearch;
+                
+                entry.style.display = isVisible ? 'block' : 'none';
+                if (isVisible) visibleCount++;
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Event Listeners
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.dataset.filter;
+                
+                if (filter.startsWith('type:')) {
+                    activeFilters.type = filter;
+                } else if (filter.startsWith('status:')) {
+                    activeFilters.status = filter;
+                } else if (filter.startsWith('priority:')) {
+                    activeFilters.priority = filter;
+                } else {
+                    activeFilters.type = 'all';
+                    activeFilters.status = 'all';
+                    activeFilters.priority = 'all';
+                }
+
+                filterEntries();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            activeFilters.search = e.target.value;
+            filterEntries();
+        });
+
+        // Initial Setup
+        renderIssues();
+        filterEntries();
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>

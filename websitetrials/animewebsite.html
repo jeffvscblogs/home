@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silhouette Anime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .nav {
+            padding: 1.5rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #e94b3c;
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #e94b3c;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 200;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: white;
+            color: #e94b3c;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .anime-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .card-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">SILHOUETTE</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Catalog</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Discover Timeless Anime</h1>
+            <p>Curated collection of classic and contemporary masterpieces</p>
+            <button class="btn">Explore Now</button>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2>Featured Series</h2>
+        <div class="anime-grid">
+            <div class="anime-card">
+                <img src="https://source.unsplash.com/random/600x800?anime" class="card-img" alt="Anime 1">
+                <div class="card-content">
+                    <h3>Spirited Journey</h3>
+                    <p>A coming-of-age story through mystical landscapes and personal growth.</p>
+                </div>
+            </div>
+            <div class="anime-card">
+                <img src="https://source.unsplash.com/random/600x800?samurai" class="card-img" alt="Anime 2">
+                <div class="card-content">
+                    <h3>Shadow Blades</h3>
+                    <p>Epic historical drama following rival samurai clans in feudal Japan.</p>
+                </div>
+            </div>
+            <div class="anime-card">
+                <img src="https://source.unsplash.com/random/600x800?cyberpunk" class="card-img" alt="Anime 3">
+                <div class="card-content">
+                    <h3>Neon Genesis</h3>
+                    <p>Cyberpunk thriller exploring humanity's relationship with technology.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Silhouette Anime. All rights reserved.</p>
+    </footer>
+</body>
+</html>

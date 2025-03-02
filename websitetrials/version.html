@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version History Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .particle-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff6f61;
+            border-radius: 50%;
+            animation: particle-float 8s infinite;
+        }
+
+        .timeline-container {
+            position: relative;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent 10%, 
+                #ff6f61 50%, 
+                transparent 90%);
+            transform: translateX(-50%);
+            z-index: 1;
+            animation: line-pulse 4s infinite;
+        }
+
+        .version-node {
+            position: relative;
+            width: 300px;
+            padding: 1.5rem;
+            background: #111;
+            border-radius: 12px;
+            margin: 4rem 0;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            z-index: 2;
+            transform-style: preserve-3d;
+        }
+
+        .version-node:nth-child(odd) {
+            margin-left: 55%;
+            transform: translateX(100px) rotate(3deg);
+        }
+
+        .version-node:nth-child(even) {
+            margin-left: 10%;
+            transform: translateX(-100px) rotate(-3deg);
+        }
+
+        .version-node.active {
+            opacity: 1;
+            transform: translateX(0) rotate(0);
+        }
+
+        .version-node:hover {
+            transform: translateX(0) scale(1.02) !important;
+            box-shadow: 0 0 30px rgba(255, 111, 97, 0.1);
+        }
+
+        .node-connection {
+            position: absolute;
+            height: 2px;
+            background: #ff6f61;
+            transform-origin: left center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .version-date {
+            color: #ff6f61;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .version-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .version-desc {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .detail-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 80%;
+            max-width: 600px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            pointer-events: none;
+            border: 1px solid #ff6f6133;
+            z-index: 1000;
+        }
+
+        .detail-panel.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: all;
+        }
+
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 100;
+            padding: 0 20px;
+        }
+
+        .arrow {
+            background: #1a1a1a;
+            border: 1px solid #ff6f61;
+            color: #ff6f61;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            pointer-events: all;
+        }
+
+        .arrow:hover {
+            background: #ff6f61;
+            color: #000;
+        }
+
+        .version-node::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            background: linear-gradient(45deg, transparent 0%, #ff6f6122 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .version-node:hover::after {
+            opacity: 0.3;
+        }
+
+        @keyframes line-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(0); opacity: 0.1; }
+            50% { transform: translateY(-100px); opacity: 0.3; }
+        }
+
+        @keyframes connection-glow {
+            0%, 100% { opacity: 0.3; box-shadow: 0 0 10px transparent; }
+            50% { opacity: 1; box-shadow: 0 0 20px #ff6f61; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particle-container"></div>
+    <div class="nav-arrows">
+        <button class="arrow prev" onclick="scrollTimeline(-100)">◀</button>
+        <button class="arrow next" onclick="scrollTimeline(100)">▶</button>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+        
+        <div class="version-node">
+            <div class="version-date">2024-03-01</div>
+            <h2 class="version-title">Initial Commit</h2>
+            <p class="version-desc">Project foundation and core architecture setup</p>
+            <div class="node-connection"></div>
+        </div>
+
+        <div class="version-node">
+            <div class="version-date">2024-04-15</div>
+            <h2 class="version-title">UI Overhaul</h2>
+            <p class="version-desc">Complete interface redesign with new component system</p>
+            <div class="node-connection"></div>
+        </div>
+
+        <div class="version-node">
+            <div class="version-date">2024-05-30</div>
+            <h2 class="version-title">API Integration</h2>
+            <p class="version-desc">Added external service connections and data pipelines</p>
+            <div class="node-connection"></div>
+        </div>
+        <div class="version-node">
+            <div class="version-date">2025-02-28</div>
+            <h2 class="version-title">Version Timeline</h2>
+            <p class="version-desc">Added external service connections and data pipelines</p>
+            <div class="node-connection"></div>
+        </div>
+
+        <div class="detail-panel">
+            <button class="close-btn" onclick="closePanel()">×</button>
+            <h2 class="panel-title"></h2>
+            <div class="panel-date"></div>
+            <p class="panel-content"></p>
+            <div class="version-stats"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize particles
+        for(let i = 0; i < 100; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            document.querySelector('.particle-container').appendChild(particle);
+        }
+
+        const versionData = {
+            "2024-03-01": {
+                commits: 42,
+                contributors: 3,
+                features: ["Core Architecture", "CLI Setup"]
+            },
+            
+            "2025-02-28": {
+                commits: 12,
+                contributors: 0,
+                features: ["Component Library", "Dark Theme"]
+            },
+            "2024-05-30": {
+                commits: 56,
+                contributors: 4,
+                features: ["REST API", "WebSocket Support"]
+            }
+        };
+
+        let selectedVersions = [];
+        const nodes = document.querySelectorAll('.version-node');
+        const panel = document.querySelector('.detail-panel');
+        let activeNode = null;
+
+        // Intersection Observer for nodes
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    createConnection(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        nodes.forEach(node => observer.observe(node));
+
+        function createConnection(node) {
+            const connection = node.querySelector('.node-connection');
+            const nodeRect = node.getBoundingClientRect();
+            const lineCenter = window.innerWidth / 2;
+            
+            const width = Math.abs(lineCenter - nodeRect.left);
+            const angle = Math.atan2(
+                nodeRect.top - window.innerHeight/2,
+                nodeRect.left - lineCenter
+            );
+
+            connection.style.width = `${width}px`;
+            connection.style.transform = `rotate(${angle}rad)`;
+            connection.style.left = `${lineCenter}px`;
+            connection.style.top = `${window.innerHeight/2}px`;
+        }
+
+        // Node click handlers
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const date = node.querySelector('.version-date').textContent;
+                activeNode = node;
+                panel.querySelector('.panel-title').textContent = 
+                    node.querySelector('.version-title').textContent;
+                panel.querySelector('.panel-date').textContent = date;
+                panel.querySelector('.panel-content').textContent = 
+                    node.querySelector('.version-desc').textContent;
+                panel.querySelector('.version-stats').innerHTML = 
+                    loadVersionDetails(date);
+                panel.classList.add('active');
+            });
+        });
+
+        function loadVersionDetails(date) {
+            return `<div class="version-stats">
+                <div class="stat"><span>📦</span> ${versionData[date].commits} Commits</div>
+                <div class="stat"><span>👥</span> ${versionData[date].contributors} Contributors</div>
+                <div class="stat"><span>✨</span> ${versionData[date].features.join(', ')}</div>
+            </div>`;
+        }
+
+        function closePanel() {
+            panel.classList.remove('active');
+            activeNode = null;
+        }
+
+        function scrollTimeline(offset) {
+            window.scrollBy({ left: offset, behavior: 'smooth' });
+        }
+
+        window.addEventListener('resize', () => {
+            nodes.forEach(node => {
+                if(node.classList.contains('active')) {
+                    createConnection(node);
+                }
+            });
+        });
+
+        // Initialize connections for already visible nodes
+        nodes.forEach(node => {
+            if(node.getBoundingClientRect().top < window.innerHeight) {
+                createConnection(node);
+            }
+        });
+        // Close panel on ESC press
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel.classList.contains('active')) {
+        closePanel();
+    }
+});
+
+// Close panel when clicking outside
+document.addEventListener('click', (event) => {
+    if (panel.classList.contains('active') && 
+        !event.target.closest('.detail-panel') && 
+        !event.target.closest('.version-node')) {
+        closePanel();
+    }
+});
+
+// Update your existing closePanel function to reset comparison mode
+function closePanel() {
+    panel.classList.remove('active');
+    activeNode = null;
+    // Reset comparison mode if active
+    selectedVersions.forEach(node => node.classList.remove('compare-selected'));
+    selectedVersions = [];
+}
+    </script>
+</body>
+</html>
