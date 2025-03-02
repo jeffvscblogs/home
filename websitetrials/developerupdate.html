@@ -22,20 +22,42 @@
             min-height: 100vh;
         }
 
+        /* Background Animation */
+        #spaceCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .radial-glow {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(
+                circle at var(--glow-x) var(--glow-y),
+                rgba(255, 111, 97, 0.05),
+                transparent 60%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
         /* Sidebar */
-        /* Corrected Avatar Positioning */
         .sidebar {
             width: 260px;
             padding: 2rem;
             position: fixed;
-            position: relative;
-    z-index: 9999;
             height: 100vh;
             border-right: 1px solid #333;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2rem;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         .avatar-container {
@@ -63,12 +85,12 @@
         .nav-item {
             color: #888;
             text-decoration: none;
-            pointer-events: all !important;
             position: relative;
             display: block;
             padding: 0.8rem 0;
             transition: all 0.3s ease;
-            position: relative;
+            width: 100%;
+            text-align: center;
         }
 
         .nav-item:hover {
@@ -97,6 +119,8 @@
             padding: 4rem;
             max-width: 800px;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
@@ -105,6 +129,7 @@
             margin-bottom: 2rem;
             font-weight: 700;
             position: relative;
+            text-align: left;
         }
 
         h1::after {
@@ -122,6 +147,7 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 3rem;
+            flex-direction: column;
         }
 
         .search-input {
@@ -144,7 +170,7 @@
         .filter-buttons {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
@@ -171,10 +197,12 @@
             padding: 2rem;
             margin-bottom: 2rem;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .update-entry:hover {
             border-color: #333;
+            transform: translateY(-2px);
         }
 
         .entry-header {
@@ -237,16 +265,19 @@
     </style>
 </head>
 <body>
+    <canvas id="spaceCanvas"></canvas>
+    <div class="radial-glow"></div>
+    
     <nav class="sidebar">
         <div class="avatar-container">
-            <!-- Fixed avatar URL -->
             <img src="https://i.ibb.co/spwmPsFd/panda-bear.png" alt="Lama" class="avatar">
         </div>
-        <!-- Fixed links with correct case and removed smooth scroll conflict -->
-        <a href="#updates" class="nav-item">Updates</a>
-        <a href="https://jeffvscblogs.github.io/home/projects.html" class="nav-item">Projects</a>
+        <a href="https://jeffvscblogs.github.io/home/websitetrials/developerupdate.html" class="nav-item">Announcements</a>
+        <a href="https://jeffvscblogs.github.io/home/Projects.html" class="nav-item">Projects</a>
         <a href="https://jeffvscblogs.github.io/home/about.html" class="nav-item">About Creator</a>
+        <a href="https://docs.google.com/forms/d/1ggOVUPb661iXvsYSptejZoZnfZAVKB6kZPr1HLwu1dk/edit#responses" class="nav-item" target="_blank">Report Bugs</a>
     </nav>
+    
     <main class="main-content">
         <h1>Dev Updates</h1>
         
@@ -261,48 +292,144 @@
             </div>
         </div>
 
-        <div class="updates-list">
-            <!-- Update Entry 1 -->
-            <div class="update-entry" data-type="update" data-status="termux" data-tags="termux, enhancement">
-                <div class="entry-header">
-                    <h3 class="entry-title">Changed the UI of the Terminal</h3>
-                    <span class="entry-date">2025-02-28</span>
-                </div>
-                <div class="entry-tags">
-                    <span class="tag">Termux</span>
-                    <span class="tag">Enhancement</span>
-                </div>
-                <p>Implemented new commands and made sure that it doesn harm the eyes in longer use. Implemented the theme of Arch Linux and added external features</p>
-                <span class="entry-status status-closed">Implemented</span>
-            </div>
-
-            <!-- Issue Entry 1 
-            <div class="update-entry" data-type="issue" data-status="open" data-tags="bug, authentication">
-                <div class="entry-header">
-                    <h3 class="entry-title">OAuth Token Expiration Bug</h3>
-                    <span class="entry-date">2023-11-14</span>
-                </div>
-                <div class="entry-tags">
-                    <span class="tag">Bug</span>
-                    <span class="tag">Authentication</span>
-                </div>
-                <p>Tokens expiring prematurely in mobile clients. Under investigation.</p>
-                <span class="entry-status status-open">Open</span>
-            </div>-->
-
-            <!-- More entries... -->
-        </div>
-
-        <div class="no-results">
-            No matching updates found
-        </div>
+        <div class="updates-list"></div>
+        <div class="no-results">No matching updates found</div>
     </main>
 
     <script>
-        // Search and Filter System
+        // Space Background Animation
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        const mouse = { x: 0, y: 0 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5;
+                this.alpha = Math.random() * 0.5 + 0.1;
+                this.speed = Math.random() * 0.05;
+            }
+
+            update() {
+                this.y += this.speed;
+                if (this.y > canvas.height) this.reset();
+                
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    this.x += dx * 0.01;
+                    this.y += dy * 0.01;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 200; i++) stars.push(new Star());
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Glow Effect
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            document.documentElement.style.setProperty('--glow-x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--glow-y', `${e.clientY}px`);
+        });
+
+        // Content Management System
+        const updates = [
+            {
+                type: 'update',
+                status: 'lama',
+                tags: ['Lama Productivity', 'Enhancement', 'Productivity'],
+                title: 'New Version 1.5',
+                date: '2025-03-02',
+                content: 'Alert and notification button installed for better task management. New calendar tool allows you to view previous tasks easily. Revamped UI with smooth animations for a better user experience.',
+                statusType: 'closed',
+                statusText: 'Implemented'
+            },
+            {
+                type: 'update',
+                status: 'lama',
+                tags: ['Lama Notes', 'Enhancement', 'Notes'],
+                title: 'New Update V2.5',
+                date: '2025-03-02',
+                content: 'Folder categories and enhanced the real time rename editing. ',
+                statusType: 'closed',
+                statusText: 'Implemented'
+            },
+            {
+                type: 'update',
+                status: 'termux',
+                tags: ['Termux', 'Enhancement', 'Terminal'],
+                title: 'Terminal UI Overhaul',
+                date: '2025-02-28',
+                content: 'Complete visual redesign of terminal interface with Arch Linux theme integration and eye-friendly color schemes.',
+                statusType: 'closed',
+                statusText: 'Implemented'
+            },
+            // Add new entries below this line
+        ];
+
+        function generateEntries() {
+            const container = document.querySelector('.updates-list');
+            container.innerHTML = '';
+            
+            updates.forEach(entry => {
+                const html = `
+                    <div class="update-entry" 
+                         data-type="${entry.type}" 
+                         data-status="${entry.status}" 
+                         data-tags="${entry.tags.join(', ')}">
+                        <div class="entry-header">
+                            <h3 class="entry-title">${entry.title}</h3>
+                            <span class="entry-date">${entry.date}</span>
+                        </div>
+                        <div class="entry-tags">
+                            ${entry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <p>${entry.content}</p>
+                        <span class="entry-status status-${entry.statusType}">${entry.statusText}</span>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // Filter System
         const searchInput = document.querySelector('.search-input');
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const entries = document.querySelectorAll('.update-entry');
         const noResults = document.querySelector('.no-results');
 
         let activeFilters = {
@@ -312,6 +439,7 @@
         };
 
         function filterEntries() {
+            const entries = document.querySelectorAll('.update-entry');
             let visibleCount = 0;
             
             entries.forEach(entry => {
@@ -332,23 +460,13 @@
 
             noResults.style.display = visibleCount === 0 ? 'block' : 'none';
         }
-        // Updated smooth scroll to only affect #updates link
-        document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
 
-        // Filter Button Handling
+        // Event Listeners
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Toggle active state
                 filterButtons.forEach(b => b.classList.remove('active'));
                 button.classList.add('active');
 
-                // Update filters
                 const filter = button.dataset.filter;
                 if (filter.startsWith('status:')) {
                     activeFilters.status = filter;
@@ -363,23 +481,21 @@
             });
         });
 
-        // Search Input Handling
         searchInput.addEventListener('input', (e) => {
             activeFilters.search = e.target.value;
             filterEntries();
         });
 
-        // Initial filter
-        filterEntries();
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-            });
+        // Initialization
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            initStars();
+            animate();
+            generateEntries();
+            filterEntries();
         });
+
+        window.addEventListener('resize', resizeCanvas);
     </script>
 </body>
 </html>
