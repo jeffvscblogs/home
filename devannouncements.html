@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>DevHub - News & Updates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 70px;
+        }
+
+        #spaceCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: #ff6f61;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: #ff6f6122;
+            color: #ff6f61;
+        }
+
+        .news-container {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #ff6f6133;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        .news-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                600px at var(--glow-x) var(--glow-y),
+                rgba(255, 111, 97, 0.1),
+                transparent 60%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .announcement-card {
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 111, 97, 0.1);
+        }
+
+        .update-date {
+            color: #ff6f61;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .update-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .update-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #ff6f61;
+        }
+
+        .update-content {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #ff6f6122;
+            color: #ff6f61;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <a href="#" class="logo">DevHub | Announcements</a>
+        <nav class="nav-links">
+            <a href="https://jeffvscblogs.github.io/home/about.html" class="nav-link">Home</a>
+            <a href="https://jeffvscblogs.github.io/home/Projects.html" class="nav-link">Projects</a>
+            <a href="https://jeffvscblogs.github.io/home/websitetrials/developerupdate.html" class="nav-link">News</a>
+        </nav>
+    </header>
+
+    <canvas id="spaceCanvas"></canvas>
+    
+    <div class="news-container">
+        <h1>Latest Announcements</h1>
+        <div class="announcement-card">
+            <div class="update-date">2025-03-02</div>
+            <h2 class="update-title">LAMA NOTES : V2.5</h2>
+            <div class="badge">New Feature</div>
+            <div class="badge">Update</div>
+            <p class="update-content">
+                Major updates include:
+                <ul>
+                    <li>Folder categories are now specified for better organization.</li>
+                    <li>Real-time rename editing for seamless note management.</li>
+                    <li>Enhanced the security Protocol.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="announcement-card">
+            <div class="update-date">2025-03-02</div>
+            <h2 class="update-title">LAMA PRODUCTIVITY : V1.5</h2>
+            <div class="badge">New Feature</div>
+            <div class="badge">Update</div>
+            
+            <p class="update-content">
+                Major updates include:
+                <ul>
+                    <li>Alert and notification button installed for better task management.</li>
+                    <li>New calendar tool allows you to view previous tasks easily.</li>
+                    <li>Revamped UI with smooth animations for a better user experience.</li>
+                    
+                </ul>
+            </p>
+        </div>
+
+
+        <div class="announcement-card">
+            <div class="update-date">2024-03-10</div>
+            <h2 class="update-title">Maintenance Window</h2>
+            <div class="badge">Infrastructure</div>
+            <p class="update-content">
+                Scheduled maintenance on March 15th 00:00-02:00 UTC.
+                Expect brief service interruptions during this period.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        const mouse = { x: null, y: null, radius: 150 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Star {
+            constructor() {
+                this.reset();
+                this.z = Math.random() * 4;
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speed = Math.random() * 0.05 + 0.01;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    this.x += dx * 0.02;
+                    this.y += dy * 0.02;
+                }
+
+                this.alpha = Math.min(Math.max(this.alpha + (Math.random() - 0.5) * 0.02, 0.1), 0.6);
+                this.y += this.speed;
+                
+                if (this.y > canvas.height + 10) this.reset();
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 111, 97, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arcthis.x, this.y, this.size * (0.8 + Math.abs(Math.sin(Date.now() * 0.001)), 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function createShootingStar() {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 111, 97, ${Math.random() * 0.4})`;
+            ctx.lineWidth = Math.random() * 2;
+            ctx.moveTo(Math.random() * canvas.width, -10);
+            ctx.lineTo(Math.random() * canvas.width + 100, canvas.height + 10);
+            ctx.stroke();
+        }
+
+        function init() {
+            stars = [];
+            for (let i = 0; i < 200; i++) stars.push(new Star());
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            if (Math.random() < 0.02) createShootingStar();
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+            
+            const formContainer = document.querySelector('.news-container');
+            const rect = formContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            formContainer.style.setProperty('--glow-x', `${x}px`);
+            formContainer.style.setProperty('--glow-y', `${y}px`);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.announcement-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
