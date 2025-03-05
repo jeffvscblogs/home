@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #fae9e9;
+            --accent-color: #ff6f61;
+            --accent-hover: #e65a50;
+            --meta-color: #a8a8a8;
+            --related-bg: #111;
+            --scrollbar-track: #000;
+            --scrollbar-thumb: #ff6f61;
+            --header-bg: #000000;
+            --footer-color: #5a5a5a;
+            --button-color: #d3cfcf;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #FCFCFC;
+            --text-color: #333333;
+            --accent-color: #e65a50;
+            --accent-hover: #cc4a40;
+            --meta-color: #666666;
+            --related-bg: #f5f5f5;
+            --scrollbar-track: #f0f0f0;
+            --scrollbar-thumb: #e65a50;
+            --header-bg: #ffffff;
+            --footer-color: #888888;
+            --button-color: #555555;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body:not([data-theme="light"]) .container:hover {
+        box-shadow: 0 0 20px rgba(255, 111, 97, 0.3);
+        transform: translateY(-2px);
+        cursor: pointer;
+        }
+        body:not([data-theme="light"]) .container:hover::after {
+        opacity: 1;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            padding: 20px;
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: var(--button-color);
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            
+        }
+        .header-buttons button:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--bg-color);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            cursor: default;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at var(--x) var(--y), 
+            rgba(255, 111, 97, 0.15) 0%, 
+            transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 0;
+        }   
+        .blog-post {
+            margin-bottom: 40px;
+        }
+        .blog-post h1 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        .blog-post .meta {
+            font-size: 14px;
+            color: var(--meta-color);
+            margin-bottom: 20px;
+        }
+        .related-posts {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--related-bg);
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .related-posts h2 {
+            color: var(--accent-color);
+            font-size: 20px;
+        }
+        .related-posts ul {
+            list-style: none;
+            padding: 0;
+        }
+        .related-posts ul li {
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: var(--header-bg);
+            color: var(--footer-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a {
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+        </div>
+        <div class="header-buttons">
+            <button onclick="window.location.href='https://jeffvscblogs.github.io/home/index.html'">Home</button>
+            <button onclick="window.location.href='https://jeffvscblogs.github.io/home/about.html'">About</button>
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Blog Post -->
+        <div class="blog-post">
+            <h1>Why Intelligent People Scare Society?</h1>
+            <div class="meta">
+                <p><i>Category: <a href="https://jeffvscblogs.github.io/home/blogs.html">Personal</a></i></p>
+                <span>March 5, 2025</span> | <span id="reading-time">Calculating...</span>
+            </div>
+            <h2>Introduction</h2>
+            <p>
+                Throughout history, highly intelligent individuals have often been met with fear, skepticism, or outright hostility. Whether in ancient civilizations or modern societies, intellectuals who challenge norms, question authority, or introduce new ways of thinking tend to disrupt the status quo. This discomfort is rooted in both historical patterns and human psychology, making intelligence not just an asset but sometimes a burden.
+            </p>
+            <h2>Fear of the Unknown and Disrupting the Status Quo</h2>
+            <p>Societies thrive on stability, traditions, and established beliefs. When intelligent individuals introduce radical ideas, they create uncertainty, which can be unsettling for the masses.</p>
+            <p>Examples from the ancient society :</p>
+            <ul>
+                <li><b>Socrates (469–399 BCE)</b> – He questioned Athenian democracy, ethics, and religious beliefs through relentless inquiry, leading to his trial and execution. His ability to expose ignorance made him both revered and feared.</li>
+                <li><b>Pythagoras (c. 570–495 BCE)</b> – His mathematical and mystical teachings formed a secretive society, and some claim he was persecuted for challenging conventional wisdom.</li>
+                <li><b>Giordano Bruno (1548–1600)</b> – Though not ancient, Bruno’s idea of an infinite universe threatened religious doctrines, leading to his execution by the Church.</li>
+            </ul>
+            <h2>Psychological Perspective</h2>
+            <p>
+                <ul>
+                    <li><b><a href="https://jeffvscblogs.github.io/lamadictionary/?word=Cognitive%20Dissonance">Cognitive Dissonance</a></b> – When people encounter ideas that contradict their deeply held beliefs, they experience psychological discomfort and may reject the individual presenting them.</li>
+                    <li><b>Fear of Change</b> – Intelligence often brings innovation that disrupts social, political, or economic systems. Most people resist change, leading to the marginalization of intellectuals.</li>
+                </ul>
+            </p>
+            <hr>
+            <h2>Intelligence Challenges Authority and Power Structures</h2>
+            <p>Governments and institutions fear intellectuals because knowledge is power. Those who think critically can expose corruption, manipulate systems, and inspire revolutions, making them a threat to those in control.</p>
+            <h3>Examples from Ancient Philosophers</h3>
+            <p>
+                <li><b>Confucius (551–479 BCE)</b> – His teachings emphasized morality, virtue, and meritocracy, challenging corrupt rulers who preferred inherited power over wisdom.</li>
+                <li><b>Aristotle (384–322 BCE)</b> – While respected, his teachings on governance and logic sometimes clashed with political interests. After Alexander the Great’s death, Aristotle fled Athens, fearing persecution.</li>
+            </p>
+            <h3>Psychological Perspective</h3>
+            <p>
+                <li><b>The Dunning-Kruger Effect</b> – Less knowledgeable individuals overestimate their understanding and often view highly intelligent people as threats rather than sources of wisdom.</li>
+                <li><b>Social Hierarchy and Envy</b> – People may feel intimidated or resentful toward those with superior intellect, leading to isolation or opposition.</li>
+            </p>
+            <hr>
+            <h2>Isolation and Misunderstanding of Intellectuals</h2>
+            <p>Many Intellectuals are ahead of their time, making their ideas difficult to grasp or accept by the general population. This often leads to social isolation or rejection. </p>
+            <h3>Examples from Ancient Philosophers</h3>
+            <p>
+                <li><b>Democritus (c. 460–370 BCE)</b> – Proposed the atomic theory of the universe, which was ignored for centuries.</li>
+                <li><b>Heraclitus (c. 535–475 BCE)</b> – Believed in constant change (“No man ever steps in the same river twice”), but was misunderstood and lived in solitude.</li>
+            </p>
+            <h3>Psychological Perspective</h3>
+            <p>
+                <li><b>The Fear of Genius</b> – Some people instinctively distrust those who think differently, associating intelligence with madness or danger.</li>
+                <li><b>Loneliness of High Intelligence</b> – Highly intelligent individuals may struggle with forming social connections due to differences in thought processes.</li>
+            </p>
+            <hr>
+            <h2>How this Relates to Today's World?</h2>
+            <p>Even in modern society, intelligence can be intimidating. Visionaries in science, technology, and philosophy often face resistance before their ideas gain acceptance.</p>
+            <li><b>Elon Musk & AI Fears</b> – His advocacy for AI regulation is met with both admiration and skepticism.</li>
+            <li><b>Edward Snowden & Government Secrecy</b> – Exposed mass surveillance, leading to both praise and persecution.</li>
+            <li><b>Malala Yousafzai & Women’s Education</b> – Faced life-threatening resistance for advocating education in conservative societies.</li>
+            <h3>Social Exclusion in Friend's Groups</h3>
+            <p><i>This is what happens to me everytime. I tried to bend my perspective to the philosophical point of view to this thing. </i></p>
+            <p>In everyday life, intelligent individuals often find themselves excluded from social circles when conversations become too deep or thought-provoking. Many social interactions prioritize entertainment, gossip, or lighthearted discussions over meaningful debates. When someone introduces intellectual discussions about philosophy, ethics, or existential questions, they may be perceived as "too serious" or "boring." As a result:</p>
+            <p>
+                <li>They may be subtly ignored or excluded from future gatherings.</li>
+                <li>Their ideas might be dismissed as unnecessary overthinking.</li>
+                <li>They could struggle to find people who genuinely engage in meaningful discussions.</li>
+            </p>
+            <p><i>This modern form of exclusion mirrors the historical resistance against intellectuals, showing that even today, society often prefers comfort over critical thought.</i></p>
+            <h2>Conclusion</h2>
+            <p>Intelligent people scare society because they challenge beliefs, disrupt power structures, and often seem difficult to understand. From Socrates to modern thinkers, society tends to resist change, even when it is beneficial. However, despite opposition, intellectuals continue to shape history, proving that the fear of intelligence is ultimately the fear of progress.</p>
+            <br>
+            <br><br>
+            <p><i>The references are taken from the internet. The personal perspectives are shared along with the reference with the history of it which results that these are not newly added. If you think like that then you are not alone or not the boring guy. Keep thinking and write down your thoughts. Deep thinking is not bad , is not boring, is not trouble making!</i></p>
+        </div>
+        <hr>
+        <br><br><br><br><br>
+        <!-- Related Posts Section -->
+        <div class="related-posts">
+            <h2>Related Posts</h2>
+            <ul>
+                <li><a href="https://jeffvscblogs.github.io/home/blog4.html">The Art of Focus</a></li>
+                <p>coming soon...</p>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const container = document.querySelector('.container');
+            let isDarkMode = localStorage.getItem('theme') !== 'light';
+    
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+            }
+    
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const isLight = body.getAttribute('data-theme') === 'light';
+                body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+                themeToggle.textContent = isLight ? '🌙' : '☀️';
+                localStorage.setItem('theme', isLight ? 'dark' : 'light');
+                isDarkMode = !isLight;
+            });
+    
+            // Glow effect functions
+            if (container) {
+                function updateGlowPosition(e) {
+                    if (!isDarkMode) return;
+                    
+                    const rect = container.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    container.style.setProperty('--x', `${x}px`);
+                    container.style.setProperty('--y', `${y}px`);
+                }
+    
+                container.addEventListener('mousemove', updateGlowPosition);
+                container.addEventListener('mouseleave', () => {
+                    container.style.setProperty('--x', '-9999px');
+                    container.style.setProperty('--y', '-9999px');
+                });
+            }
+        });
+    
+        // Reading Time Calculator
+        function calculateReadingTime() {
+            const blogContent = document.querySelector('.blog-post').innerText;
+            const wordsPerMinute = 200;
+            const wordCount = blogContent.split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / wordsPerMinute);
+            document.getElementById('reading-time').textContent = `${readingTime} min read`;
+        }
+        window.onload = calculateReadingTime;
+    </script>
+</body>
+</html>
