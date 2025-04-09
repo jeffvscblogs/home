@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: #000000;
+            color: #d8bdbd;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: #d3cfcf;
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .header-buttons button:hover {
+            color: #e65a50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        .project-details {
+            margin-bottom: 40px;
+        }
+        .project-details h2 {
+            color: #8b48f7;
+            margin-top: 0;
+        }
+        h3 {
+            color: #8b48f7;
+            margin-top: 0;
+        }
+        .project-details p {
+            margin: 10px 0;
+        }
+        .project-details ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .project-details ul li {
+            margin-bottom: 10px;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: #000000;
+            color: #5a5a5a;
+        }
+        a {
+            color: #fae9e9;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #ff6f61;
+    }
+    .custom-quote {
+        font-style: italic;
+        background: #f9f9f900;
+        border-left: 5px solid #4c53af;
+        padding: 2px 20px;
+        margin: 30px auto;
+        max-width: 930px;
+        color: #f3e5e5;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .quote-author {
+      text-align: right;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+        </div>
+        <div class="header-buttons">
+            <a href="https://jeffvscblogs.github.io/home/about.html">
+                <button>About</button>
+            </a>              
+            <a href="https://jeffvscblogs.github.io/home/current.html">
+                <button>Current</button>
+            </a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Project Details</h1>
+        <p><i>Minimal & Offline Note-Taking Webapp</i></p>
+
+        <!-- Project 1: Lama: Productivity -->
+        <div class="project-details">
+            <h2>Beryl Notes</h2>
+            <p>A beautifully designed, lightweight, and offline note-taking application for students, professionals, and anyone who loves staying organized. Beryl Notes focuses on simplicity, speed, and a distraction-free writing experience. <b>No cloud sync</b> – your notes stay with you.</p>
+            <h3>Features:</h3>
+            <ul>
+                <li>📒 ‎ <b>Offline First</b> – Works fully without internet.</li>
+                <li>🗂️ <b>Categorized Notes</b> – Organize notes into categories.</li>
+                <li>🏷️ <b>Tags & Labels</b> – Add tags for easier searching.</li>
+                <li>🔍 <b>Search Functionality</b> – Quickly find what you wrote.</li>
+                <li>✏️ <b>Rich Text Editor</b> – Bold, Italic, Underline, Headings, Lists.</li>
+                <li>📅 <b>Timestamps</b> – Every note gets a created & modified time.</li>
+                <li>🧭 <b>Minimal UI</b> – Clean and clutter-free design with black theme (beryl theme) for eye comfort.</li>
+                <li>⚙️ <b>Preview</b> - Every Note can be edited and can be previewed to presend the notes with the text editors.</li>
+            </ul>
+            <br>
+            <h3>Upcoming features</h3>
+            <ul>
+                <li>🔐 App Lock (PIN or password)</li>
+                <li>📌 Note Pinning</li>
+                <li>📦 Backup & Restore (.json export/import)</li>
+                <li>📷 Add Image Support</li>
+                <li> ☁ Cloud Version - Interact a note with collaboration of your friends.</li>
+            </ul>
+            <br>
+            <h3>Targeted Audience</h3>
+            <ul>
+                <li>Students</li>
+                <li>Writer</li>
+                <li>Creators</li>
+                <li>Journalers</li>
+                <li>Minimalists</li>
+                <li>Offline users with limited internet access</li>
+                
+            </ul>
+            <br>
+            <h3>Project Goal</h3>
+            <p>To provide a <i>beautiful</i>, <i>fast</i>, and <i>simple</i>, note-taking experience thats fully offline, helping users stay productive without <b>distractions</b> or <b>unnecessary complexity</b>.</p>
+            <br>
+            <div class="custom-quote">
+                “We believe in your Privacy and minimalistic love! Thats why it is Beryl and nothing other!”
+                <div class="quote-author">— Juman Deep Bharati</div>
+              </div>
+            <br>
+            <br>
+            <p><a href="">Visit Project</a></p>
+        </div>
+
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
+</body>
+</html>
