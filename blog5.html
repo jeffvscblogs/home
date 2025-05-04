@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | lmah</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/spwmPsFd/panda-bear.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            background-color: #000000;
+            color: #fae9e9;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #fff;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            color: #d3cfcf;
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .header-buttons button:hover {
+            color: #e65a50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        .blog-post {
+            margin-bottom: 40px;
+        }
+        .blog-post h1 {
+            color: #ddc3c3;
+            margin-top: 0;
+        }
+        .blog-post .meta {
+            font-size: 14px;
+            color: #a8a8a8;
+            margin-bottom: 20px;
+        }
+        .blog-post p {
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background: #000000;
+            color: #5a5a5a;
+        }
+        h1 {
+            font-family: 'Press Start 2p', cursive;
+        }
+        h2 {
+            font-family: 'Lora', serif;
+        }
+        a {
+            color: #fae9e9;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #ff6f61;
+        }
+        .emacsimg {
+            float: left;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.ibb.co/cCv0nGC/z-WGg-Z9-Bv-400x400.jpg" alt="Avatar" class="avatar">
+        </div>
+        <div class="header-buttons">
+            <button onclick="window.location.href='about.html'">About</button>
+            <button onclick="window.location.href='current.html'">Current</button>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Blog Post -->
+        <div class="blog-post">
+            <h1>ORIGAME👾</h1>
+            <div class="meta">
+                <span>October 25, 2023</span> | <span id="reading-time">Calculating...</span>
+            </div>
+            <hr>
+            <h2>Introduction</h2>
+            <p>
+                I was wondering if I could have a special productivity system around me which helps me track things and keep it straight-forward.I have always loved how powerful and organized <a href="https://jeffvscblogs.github.io/jeffnet/?article=Org-mode">Emacs Org</a> mode is , I feels like a sync hero, Well too much introduction. 
+            </p>
+            <img class="emacsimg" src="https://i.ibb.co/svBwtqsr/image.png" alt="emacs">
+            <p class="emacsdescription"></p>
+                But lets be real, not everyone wants to dive intro Emacs just to use it. Thats what pushed me to build <b>Origame</b>, <i>A personal project I made for myself, My own take on ORg Mode, made for the browser</i>. I wanted something lightweight, accessible, and simple, where I could write TODOs, though I have made lots of todolist holders but at some point they just felt useless. I can structure notes with Headlinesm format stuff with just asterisks and slashes, and even drop in tables or code blocks, which not only holds the texual notes but also the codes - all without leaving my browser. This blog is a behind-the-scenes look at how I build Origame: where the idea came from, how I built the features, and all the cool little things I learned along the way.
+            </p>
+            <h2>How come the idea?</h2>
+            <p>
+                I am a kind of person that basically websearch a lot.
+                I have been watching a bunch of Productivity and Emacs nerds online glorigy Org Mode as if it was a diving tool sent by the gods of organization. I basically wanted to give it a try and install in my windows system - and boom, reality hit.It sucked. Not because Org Mode is bad, but beacause its clearly build with linux users in mind, and th experience on Windows just doesnt feel smooth. Thats when the thought clicked: <i>Why not bring Org Mode to the browser?</i> Inner me was - "I will use it, even if I have to make it from the scratch" (it was a trynow thing).
+                I had a decent grip on HTML, CSS and Javascropt, so the idea didnt feel impossible. Physical notebooks werent cutting it anymore and my typing speed gave me the confidence to switch to something digital and accessible. My schhol wasnt assigning any cool CS projects either, so this felt like the perfect personal rebellion.
+            </p>
+            <h2>The chaos ^~^</h2>
+            <p style="font-family: 'Courier New', Courier, monospace;">
+                I used <b>React</b> for the frontend - not because I was a pro at it, but because I wanted to learn while building, With some help from AI and a few lightweight Javascript libraries (which I will mention later), I structured the app to keep everything inside the browser. That meant no cloud syncing, no login stress - just a clean, local storage setup that runs instantly and stores your notes efficiently. To figure out what features to include, I dug into articles, tutorials, and user reviews of Org mode about the pros and cons basically.I cherry-picked the stuff that fasciated me most and skipped the complex file-directory setup for now. I have also been working on a related projext called <b>Berylai</b> - A more minimal version of Lamanotes - so I took lessons freom there too. The webapp you see today was mostly built in a 54-hour weekend sprint.
+                <br>
+                Thursday Night was ideation. Friday was research. Saturday and Sunday were all code,chaos, and caffeine. I have been similarly testing and working on radio frequency thing (I dont know recently I got interested in this stuff, I will drop the blog post soon). I wrote nine feature files, two main components, and backed everything up on my ssd. Barely 4 hours of sleep, but hey - here we are on Monday morning, writing this blog like a zombie but with pride.
+            </p>
+            <h2>Not a CLONE!</h2>
+            <p>I never aimed to build a full-blown clone of Emacs Org mode - that wasnt the goal. Origame is more of a <i>reinterpretation</i>, shaped by my workflow, frustrations and chaos. Its lighter, bowser-based, and way more beginner friendly. WHile Org mode is insanely powerful, its also intimidating. I wanted something that felt quick, intuitivem and usable for both casual notes and semi serious task management - no bloated UI, no keyboard acrobatics. Of course, I skipped a bunch of features - file directory system, export/mport options, advanced keyboard macros - mostly because I didnt want to over-engineer it or lose my selft in trying to make a 1:1 replica. Origame is for people like me: Chaotic but have to use it, not strict about structure, nuts till craving some kind of system. And honestly? <b>It Works.</b>
+            </p>
+            <h2>What I learned?</h2>
+            <p>
+                This project was way more than just writing some React code - it taught me how to <i>think like a builder</i>. I used to see tools like Org Mode and think, "damn, this is god-level," but when I broke it down, I realized even complex tools are just a mix of small, logical ideas put together. I learned how to handle dynamic data in the browser, oarse raw text into structured formats and style content so that it actually feels nice to use. React Scared me a bit in the beginning, but with help from AI and docs, I started vibing with components and state logic. Also, learning to <i>not overbuild</i> was a big lesson -I skipped features not out of laziness, but because knowing what to leave out is as importatn as what to add. And above all, I learned that ideas are cheap - execution, even messy and unfinished, is what actually matters.
+            </p>
+            <h2>Whats Next?</h2>
+            <p>
+                Origame [Ori+Game] was a weekend spark but I am not done yet. I want to make it cleaner, faster, gamify user experience and a bit more powerful without killing the simplicity. Next up, I am planning to add export/import support, shortcut keys <i>(yeah I will get them right this time)</i>, and even a minimal file directory system (no one knows). I have also thought about turning it into a PWA so users can install it like a native app, no installs, just vibes. Berlai (my other project) will focus on users who dont care about code or structure but still want a clean note-taking space. Maybe one day Origame will talk to lamanotes or berylai - who knows? For now, I am just enjoying building weird, useful stuff and figuring things out as I go. If you vibed with this idea or have feedback, I'd love to hear from you. This is just version 0.1 - The real game's just starting.
+            </p>
+            <h3><a href="https://origameux.netlify.app/">try now -></a></h3>
+            <br>
+            <br>
+            <p style="font-family: 'Courier New', Courier, monospace;">@jeffvsc-Juman signing off.</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 lama. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to calculate reading time
+        function calculateReadingTime() {
+            // Get all the text content from the blog post
+            const blogContent = document.querySelector('.blog-post').innerText;
+
+            // Average reading speed in words per minute (WPM)
+            const wordsPerMinute = 200;
+
+            // Calculate the number of words
+            const wordCount = blogContent.split(/\s+/).length;
+
+            // Calculate the reading time in minutes
+            const readingTime = Math.ceil(wordCount / wordsPerMinute);
+
+            // Update the reading time in the DOM
+            document.getElementById('reading-time').textContent = `${readingTime} min read`;
+        }
+
+        // Call the function when the page loads
+        window.onload = calculateReadingTime;
+    </script>
+</body>
+</html>
